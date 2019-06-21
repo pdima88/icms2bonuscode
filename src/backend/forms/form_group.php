@@ -6,7 +6,7 @@ use fieldString;
 use fieldText;
 use fieldNumber;
 
-class formBonuscodeGroup extends cmsForm {
+class form_group extends cmsForm {
 
     public function init(){
 

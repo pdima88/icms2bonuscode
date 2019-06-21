@@ -14,7 +14,7 @@ use pdima88\icms2bonuscode\backend as backendBonuscode;
  * @property modelBonuscode $model
  * @property backendBonuscode $controller
  */
-class actionBonuscodeTypes extends crudAction {
+class types extends crudAction {
 
     const FORM_EDIT = 'type_edit';
 

@@ -13,7 +13,7 @@ use cmsUser;
  * @property modelBonuscode $model
  */
 
-class actionBonuscodeCodes extends crudAction {
+class codes extends crudAction {
 
     const FORM_CODE = 'code';
     const FORM_GROUP = 'group';
