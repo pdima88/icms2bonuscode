@@ -117,4 +117,18 @@ class model extends cmsModel {
         $this->filterEqual('user_id', $userId);
         return $this->getItem(self::TABLE_ACTIVATIONS);
     }
+
+    function addActivation($bonusCodeId, $userId, $data) {
+        $dataArr = [
+            'user_id' => $userId,
+            'code_id' => $bonusCodeId,
+            'date_activated' => $data['date_activated'] ?? now(),
+            'product' => $data['product'] ?? null,
+            'product_id' => $data['product_id'] ?? null,
+            'typeid' => $data['typeid'] ?? null,
+            'order_id' => $data['order_id'] ?? null,
+            'is_used' => $data['is_used'] ?? 0
+        ];
+        return $this->insert(self::TABLE_ACTIVATIONS, $dataArr);
+    }
 }
