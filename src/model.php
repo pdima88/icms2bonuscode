@@ -3,6 +3,7 @@ namespace pdima88\icms2bonuscode;
 
 use cmsModel;
 use cmsEventsManager;
+use Exception;
 
 class model extends cmsModel {
 
@@ -119,6 +120,9 @@ class model extends cmsModel {
     }
 
     function addActivation($bonusCodeId, $userId, $data) {
+        $this->resetFilters();
+        $bonus = $this->getItemById(self::TABLE_BONUSCODES, $bonusCodeId);
+        if (!$bonus) throw new Exception('Bonus code id '.$bonusCodeId.' not exists!');
         $dataArr = [
             'user_id' => $userId,
             'code_id' => $bonusCodeId,
@@ -129,6 +133,11 @@ class model extends cmsModel {
             'order_id' => $data['order_id'] ?? null,
             'is_used' => $data['is_used'] ?? 0
         ];
-        return $this->insert(self::TABLE_ACTIVATIONS, $dataArr);
+        $id = $this->insert(self::TABLE_ACTIVATIONS, $dataArr);
+        $this->resetFilters();
+        $this->update(self::TABLE_BONUSCODES, $bonusCodeId, [
+            'total_activation_count' => $bonus['total_activation_count'] + 1,
+        ]);
+        return $id;
     }
 }
